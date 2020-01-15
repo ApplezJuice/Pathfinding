@@ -40,7 +40,7 @@ public class Unit : MonoBehaviour
                 Vector3 moveDir = (targetPos - transform.position).normalized;
 
                 float distanceBefore = Vector3.Distance(transform.position, targetPos);
-                transform.position = transform.position + moveDir * 2f * Time.deltaTime;
+                transform.position = transform.position + moveDir * .75f * Time.deltaTime;
             }else
             {
                 currentPathIndex++;
