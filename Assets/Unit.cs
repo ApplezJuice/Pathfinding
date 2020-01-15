@@ -35,7 +35,7 @@ public class Unit : MonoBehaviour
         {
             Vector3 targetPos = pathVectorList[currentPathIndex];
             //targetPos = new Vector3(targetPos.x + .5f, targetPos.y + .5f) + offset;
-            if (Vector3.Distance(transform.position, targetPos) > .24f)
+            if (Vector3.Distance(transform.position, targetPos) > .01f)
             {
                 Vector3 moveDir = (targetPos - transform.position).normalized;
 
