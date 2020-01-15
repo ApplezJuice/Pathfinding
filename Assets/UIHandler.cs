@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour
 {
-    [SerializeField] GameHandler gameHandler;
-    [SerializeField] GameObject actionbarPanel;
-    [SerializeField] Toggle[] wallButtons;
+    [SerializeField] public GameHandler gameHandler;
+    [SerializeField] public GameObject actionbarPanel;
+    [SerializeField] public Toggle[] wallButtons;
 
     private List<WallConfigs> usableWalls;
     private Dictionary<Toggle,WallConfigs> loadedWallConfigs = new Dictionary<Toggle, WallConfigs>();

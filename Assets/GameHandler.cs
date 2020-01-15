@@ -11,6 +11,7 @@ public class GameHandler : MonoBehaviour
     private bool isInEditMode = false;
     private GridCustom<PathNode> grid;
     private List<PathNode> editableNodes = new List<PathNode>();
+    private List<PathNode> wallsToBePlaced = new List<PathNode>();
 
     public WallConfigs selectedWall;
 
@@ -76,7 +77,9 @@ public class GameHandler : MonoBehaviour
                         Debug.Log("Can't place here");
                     }else
                     {
-                        node.SetIsWalkable(false);
+                        // THIS HIDES EDITABLE TILES DUE TO THE DELEGATE
+                        //node.SetIsWalkable(false);
+                        wallsToBePlaced.Add(node);
     
                         var gameobj = Instantiate(selectedWall.wallPrefab, grid.GetWorldPos(x,y) + new Vector3(.25f, .25f), Quaternion.identity);
                         gameobj.transform.localScale = new Vector3(.5f,.5f);
@@ -91,6 +94,11 @@ public class GameHandler : MonoBehaviour
             isInEditMode = false;
             pathfindingVisual.isInEditMode = isInEditMode;
             HidePlaceableGrid();
+            foreach(var node in wallsToBePlaced)
+            {
+                node.SetIsWalkable(false);
+            }
+            wallsToBePlaced.Clear();
         }
     }
 
