@@ -18,7 +18,7 @@ public class GridCustom<TGridObject>
     private GameObject playField;
     private Vector3 originPosition;
 
-    public GridCustom(int width, int height, float cellSize, GameObject playField, Vector3 originPos, Func<TGridObject> createdGrid,
+    public GridCustom(bool debugMode, int width, int height, float cellSize, GameObject playField, Vector3 originPos, Func<TGridObject> createdGrid,
     Func<GridCustom<TGridObject>,int,int,TGridObject> createGridObject = null)
     {
         this.width = width;
@@ -44,7 +44,9 @@ public class GridCustom<TGridObject>
             }
         }
 
-        TextMesh[,] debugTextArray = new TextMesh[width,height];
+        if (debugMode)
+        {
+            TextMesh[,] debugTextArray = new TextMesh[width,height];
 
         for (int x = 0; x < gridArray.GetLength(0); x++)
         {
@@ -63,6 +65,7 @@ public class GridCustom<TGridObject>
         Debug.DrawLine(GetWorldPos(width, 0), GetWorldPos(width, height), Color.white, 100f);
 
         //SetValue(2, 1, 56);
+        }
     }
 
     public void TriggerGridObjectChanged(int x, int y) {

@@ -7,13 +7,16 @@ public class Pathfinding
     private const int MOVE_STRAIGHT_COST = 10;
     private const int MOVE_DIAGONAL_COST = 14;
 
+    public static Pathfinding Instance { get; private set;}
+
     private GridCustom<PathNode> grid;
     private List<PathNode> openList;
     private List<PathNode> closedList;
 
-    public Pathfinding (int width, int height, GameObject obj)
+    public Pathfinding (bool debug, int width, int height, GameObject obj)
     {
-        grid = new GridCustom<PathNode>(width, height, .5f, obj, new Vector3(-2.5f,-4f,0),null, 
+        Instance = this;
+        grid = new GridCustom<PathNode>(debug, width, height, .5f, obj, new Vector3(-2.5f,-4f,0),null, 
         (GridCustom<PathNode> g, int x, int y) => new PathNode(g,x,y));
     }
 
@@ -25,6 +28,28 @@ public class Pathfinding
     public PathNode GetNode(int x, int y)
     {
         return grid.GetValue(x, y);
+    }
+
+    public List<Vector3> FindPath(Vector3 startWorldPos, Vector3 endWorldPos)
+    {
+        Vector3 offset = new Vector3(-2.5f,-4f,0);
+
+        grid.GetXY(startWorldPos, out int startX, out int startY);
+        grid.GetXY(endWorldPos, out int endX, out int endY);
+
+        List<PathNode> path = FindPath(startX, startY, endX, endY);
+        if(path == null)
+        {
+            return null;
+        }else {
+            List<Vector3> vectorPath = new List<Vector3>();
+            foreach(PathNode node in path)
+            {
+                Vector3 pathGen = new Vector3((float)node.x / 2 + .25f, (float)node.y / 2 + .25f) + offset;
+                vectorPath.Add(pathGen);
+            }
+            return vectorPath;
+        }
     }
 
     public List<PathNode> FindPath(int startX, int startY, int endX, int endY)
@@ -92,7 +117,7 @@ public class Pathfinding
         return null;
     }
 
-    private List<PathNode> GetNeighborList(PathNode currentNode)
+    public List<PathNode> GetNeighborList(PathNode currentNode)
     {
         List<PathNode> neighborList = new List<PathNode>();
 

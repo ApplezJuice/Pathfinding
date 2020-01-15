@@ -19,7 +19,7 @@ public class PlayArea : MonoBehaviour
         //         200,10
         //         )));
 
-        grid = new GridCustom<int>(10, 20, .5f, this.transform.gameObject, new Vector3(-2.5f,-4f,0), () => new int());
+        grid = new GridCustom<int>(true, 10, 20, .5f, this.transform.gameObject, new Vector3(-2.5f,-4f,0), () => new int());
         //Debug.Log(Screen.height);
     }
 
