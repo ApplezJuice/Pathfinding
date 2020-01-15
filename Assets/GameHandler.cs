@@ -40,11 +40,19 @@ public class GameHandler : MonoBehaviour
         selectedWall = config;
     }
 
-    public WallConfigs GetAvailableWalls()
+    public WallConfigs GetAvailableWalls(int? specificWall = null)
     {
-        WallConfigs config = wallConfigs[Random.Range(0,wallConfigs.Length)];
+        if (specificWall == null)
+        {
+            WallConfigs config = wallConfigs[Random.Range(0,wallConfigs.Length)];
 
         return config;
+        }else
+        {
+            WallConfigs config = wallConfigs[(int)specificWall];
+            return config;
+        }
+        
     }
 
     private void Update() 
@@ -71,6 +79,10 @@ public class GameHandler : MonoBehaviour
                     int x, y;
                     grid.GetXY(mousePosition, out x, out y);
                     var node = Pathfinding.Instance.GetNode(x, y);
+                    if (node == null)
+                    {
+                        goto Skip;
+                    }
                     if (node.isWalkable == false || !node.canPlaceWall)
                     {
                         // CANNOT PLACE A WALL
@@ -87,6 +99,7 @@ public class GameHandler : MonoBehaviour
                 }
             }
         }
+        Skip:
 
         if (Input.GetKeyDown(KeyCode.Escape) && isInEditMode)
         {

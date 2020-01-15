@@ -16,7 +16,10 @@ public class UIHandler : MonoBehaviour
     public void Init()
     {
         usableWalls = new List<WallConfigs>();
-        usableWalls.Add(gameHandler.GetAvailableWalls());
+        usableWalls.Add(gameHandler.GetAvailableWalls(0));
+        usableWalls.Add(gameHandler.GetAvailableWalls(1));
+        usableWalls.Add(gameHandler.GetAvailableWalls(2));
+        usableWalls.Add(gameHandler.GetAvailableWalls(3));
         GenerateWallButtons();
     }
 
@@ -24,8 +27,8 @@ public class UIHandler : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            wallButtons[i].gameObject.GetComponentInChildren<Image>().sprite = usableWalls[0].wallSprite;
-            loadedWallConfigs.Add(wallButtons[i],usableWalls[0]);
+            wallButtons[i].gameObject.GetComponentInChildren<Image>().sprite = usableWalls[i].wallSprite;
+            loadedWallConfigs.Add(wallButtons[i],usableWalls[i]);
         }
     }
 

@@ -103,6 +103,11 @@ public class TestingPath : MonoBehaviour
 
                 Vector3 mouseWorldPosition = GetMouseWorldPos();
                 pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
+                PathNode nodeToGoTo = pathfinding.GetNode(x, y);
+                if (nodeToGoTo == null)
+                {
+                    return;
+                }
                 List<PathNode> path = pathfinding.FindPath(startX, startY, x, y);
 
                 Vector3 offset = new Vector3(-2.5f,-4f,0);

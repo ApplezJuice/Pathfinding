@@ -654,7 +654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3066038, g: 1, b: 0.34291667, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1191,7 +1191,10 @@ MonoBehaviour:
   castlePrefab: {fileID: 4826866089916619019, guid: fbc6fcbf010af934fa4e4f9a2000eaf6,
     type: 3}
   wallConfigs:
-  - {fileID: 11400000, guid: 0427b53cb744f3c419f68a9b86fde565, type: 2}
+  - {fileID: 11400000, guid: b82d3c99d792eb34d8c2dbbf3bf54f9b, type: 2}
+  - {fileID: 11400000, guid: 7c0fe736d18525d4f888787e223343c7, type: 2}
+  - {fileID: 11400000, guid: 813e65acc57dc554c9fa899065692b14, type: 2}
+  - {fileID: 11400000, guid: e147cda7b6f61e743a2a4f349af8d0c6, type: 2}
   selectedWall: {fileID: 0}
 --- !u!4 &1740408578
 Transform:
@@ -1397,7 +1400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3066038, g: 1, b: 0.34291667, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1451,7 +1454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3066038, g: 1, b: 0.34291667, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1543,7 +1546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3066038, g: 1, b: 0.34291667, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
