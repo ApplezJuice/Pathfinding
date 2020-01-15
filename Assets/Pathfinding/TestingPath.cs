@@ -99,8 +99,6 @@ public class TestingPath : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                
-
                 Vector3 mouseWorldPosition = GetMouseWorldPos();
                 pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
                 PathNode nodeToGoTo = pathfinding.GetNode(x, y);

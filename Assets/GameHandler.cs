@@ -7,11 +7,14 @@ public class GameHandler : MonoBehaviour
     [SerializeField] public PathfindingVisuals pathfindingVisual;
     [SerializeField] public GameObject castlePrefab;
     [SerializeField] public WallConfigs[] wallConfigs;
+    [SerializeField] public GameObject wallSelectedPrefab;
 
     private bool isInEditMode = false;
     private GridCustom<PathNode> grid;
     private List<PathNode> editableNodes = new List<PathNode>();
     private List<PathNode> wallsToBePlaced = new List<PathNode>();
+    private PathNode mouseHoverNode;
+    private GameObject tempNodeObject;
 
     public WallConfigs selectedWall;
 
@@ -67,6 +70,43 @@ public class GameHandler : MonoBehaviour
 
         if (isInEditMode)
         {
+            var v3 = Input.mousePosition;
+            v3.z = 10;
+            var mouseWorldLoc = Camera.main.ScreenToWorldPoint(v3);
+            
+            grid.GetXY(mouseWorldLoc, out int mouseX, out int mouseY);
+            
+            var mouseLocationNode = Pathfinding.Instance.GetNode(mouseX, mouseY);
+            // OVER A NODE THAT CAN PLACE A WALL
+            if (mouseLocationNode != null && mouseLocationNode.canPlaceWall)
+            {
+                Debug.Log(mouseLocationNode.x + " " + mouseLocationNode.y);
+                // NEW NODE NOT BEGINNING
+                if (mouseHoverNode != mouseLocationNode && mouseHoverNode != null)
+                {
+                    
+                    if (tempNodeObject != null)
+                    {
+                        Destroy(tempNodeObject);
+                    }
+                    mouseHoverNode = mouseLocationNode;
+                    var nodeWorldPos = grid.GetWorldPos(mouseHoverNode.x, mouseHoverNode.y);
+                    tempNodeObject = Instantiate(wallSelectedPrefab, nodeWorldPos + new Vector3(.25f,.25f), Quaternion.identity);
+                    tempNodeObject.transform.localScale = new Vector3(.5f,.5f);
+                    
+                }
+                else if (mouseHoverNode != mouseLocationNode && mouseHoverNode == null)
+                {
+                    // START OF A HOVER
+                    mouseHoverNode = mouseLocationNode;
+                    var nodeWorldPos = grid.GetWorldPos(mouseHoverNode.x, mouseHoverNode.y);
+                    tempNodeObject = Instantiate(wallSelectedPrefab, nodeWorldPos + new Vector3(.25f,.25f), Quaternion.identity);
+                    tempNodeObject.transform.localScale = new Vector3(.5f,.5f);
+                    
+                }
+
+            }
+
             if (Input.GetMouseButtonDown(0))
             {
                 if (selectedWall == null)
@@ -104,6 +144,7 @@ public class GameHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && isInEditMode)
         {
             // EXIT EDIT MODE
+            Destroy(tempNodeObject);
             isInEditMode = false;
             pathfindingVisual.isInEditMode = isInEditMode;
             HidePlaceableGrid();
