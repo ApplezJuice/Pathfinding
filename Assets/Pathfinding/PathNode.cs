@@ -13,6 +13,7 @@ public class PathNode
     public int fCost;
 
     public bool isWalkable;
+    public bool canPlaceWall;
 
     // Node we came form to reach this one
     public PathNode cameFromNode;
@@ -23,11 +24,18 @@ public class PathNode
         this.x = x;
         this.y = y;
         isWalkable = true;
+        canPlaceWall = false;
     }
 
     public void SetIsWalkable(bool isWalkable)
     {
         this.isWalkable = isWalkable;
+        grid.TriggerGridObjectChanged(x, y);
+    }
+
+    public void SetCanPlaceWall(bool canPlaceWall)
+    {
+        this.canPlaceWall = canPlaceWall;
         grid.TriggerGridObjectChanged(x, y);
     }
 

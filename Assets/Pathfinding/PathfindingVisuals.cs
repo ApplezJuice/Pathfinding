@@ -7,7 +7,9 @@ public class PathfindingVisuals : MonoBehaviour
     private GridCustom<PathNode> grid;
     private Mesh mesh;
     private static Quaternion[] cachedQuaternionEulerArr;
+    private List<PathNode> editableNodes;
     public bool updateMesh = false;
+    public bool isInEditMode = false;
 
     private void Awake() 
     {
@@ -23,6 +25,11 @@ public class PathfindingVisuals : MonoBehaviour
         }    
     }
 
+    public void SetEditableNodes(List<PathNode> nodes)
+    {
+        editableNodes = nodes;
+    }
+
     public void SetGrid(GridCustom<PathNode> grid)
     {
         this.grid = grid;
@@ -33,6 +40,32 @@ public class PathfindingVisuals : MonoBehaviour
 
     private void Grid_OnGridValueChanged(object sender, GridCustom<PathNode>.OnGridObjectChangedEventArgs e) {
         updateMesh = true;
+    }
+
+    public void ShowEditables()
+    {
+        Vector3 quadSize = new Vector3(1, 1) * grid.GetCellSize();
+
+        CreateEmptyMeshArraysTemp(grid.GetWidth() * grid.GetHeight(), out Vector3[] verticies, out Vector2[] uvs, out int[] triangles);
+
+        foreach(var node in editableNodes)
+        {
+            int index = node.x * grid.GetHeight() + node.y;
+            Vector2 gridValueUV = new Vector2(10f, 0f);
+            if (isInEditMode)
+            {
+                quadSize = new Vector3(1, 1) * grid.GetCellSize();
+                AddToMeshArrays(verticies, uvs, triangles, index, grid.GetWorldPos(node.x, node.y) + quadSize * .5f, 0f, quadSize, gridValueUV, gridValueUV);
+                mesh.vertices = verticies;
+                mesh.uv = uvs;
+                mesh.triangles = triangles;
+            }else
+            {
+                UpdateVisualTemp();
+                Debug.Log(isInEditMode);
+                break;
+            }
+        }
     }
 
     public void UpdateVisualTemp()
@@ -52,7 +85,6 @@ public class PathfindingVisuals : MonoBehaviour
                 {
                     quadSize = Vector3.zero;
                 }
-
                 AddToMeshArrays(verticies, uvs, triangles, index, grid.GetWorldPos(x, y) + quadSize * .5f, 0f, quadSize, Vector2.zero, Vector2.zero);
             }
         }

@@ -10,10 +10,6 @@ public class TestingPath : MonoBehaviour
     private Pathfinding pathfinding;
 
     private int startX, startY = 0;
-    void Start()
-    {
-       
-    }
 
     public void Init()
     {
