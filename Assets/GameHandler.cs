@@ -84,15 +84,21 @@ public class GameHandler : MonoBehaviour
                 // NEW NODE NOT BEGINNING
                 if (mouseHoverNode != mouseLocationNode && mouseHoverNode != null)
                 {
-                    
-                    if (tempNodeObject != null)
-                    {
-                        Destroy(tempNodeObject);
-                    }
                     mouseHoverNode = mouseLocationNode;
                     var nodeWorldPos = grid.GetWorldPos(mouseHoverNode.x, mouseHoverNode.y);
-                    tempNodeObject = Instantiate(wallSelectedPrefab, nodeWorldPos + new Vector3(.25f,.25f), Quaternion.identity);
-                    tempNodeObject.transform.localScale = new Vector3(.5f,.5f);
+                    //tempNodeObject = Instantiate(wallSelectedPrefab, nodeWorldPos + new Vector3(.25f,.25f), Quaternion.identity);
+                    //tempNodeObject.transform.localScale = new Vector3(.5f,.5f);
+
+                    if (tempNodeObject != null)
+                    {
+                        //Destroy(tempNodeObject);
+                        tempNodeObject.transform.position = nodeWorldPos + new Vector3(.25f,.25f);
+                    }else
+                    {
+                        tempNodeObject = Instantiate(wallSelectedPrefab, nodeWorldPos + new Vector3(.25f,.25f), Quaternion.identity);
+                        tempNodeObject.transform.localScale = new Vector3(.5f,.5f);
+                    }
+                   
                     
                 }
                 else if (mouseHoverNode != mouseLocationNode && mouseHoverNode == null)
@@ -100,8 +106,17 @@ public class GameHandler : MonoBehaviour
                     // START OF A HOVER
                     mouseHoverNode = mouseLocationNode;
                     var nodeWorldPos = grid.GetWorldPos(mouseHoverNode.x, mouseHoverNode.y);
-                    tempNodeObject = Instantiate(wallSelectedPrefab, nodeWorldPos + new Vector3(.25f,.25f), Quaternion.identity);
-                    tempNodeObject.transform.localScale = new Vector3(.5f,.5f);
+                    
+                    if (tempNodeObject != null)
+                    {
+                        tempNodeObject = Instantiate(wallSelectedPrefab, nodeWorldPos + new Vector3(.25f,.25f), Quaternion.identity);
+                        tempNodeObject.transform.localScale = new Vector3(.5f,.5f);
+                    }else
+                    {
+                        tempNodeObject = Instantiate(wallSelectedPrefab, nodeWorldPos + new Vector3(.25f,.25f), Quaternion.identity);
+                        tempNodeObject.transform.localScale = new Vector3(.5f,.5f);
+                    }
+                    
                     
                 }
 
