@@ -95,28 +95,31 @@ public class TestingPath : MonoBehaviour
             //pathfinding.GetNode(x, y).SetIsWalkable(!pathfinding.GetNode(x,y).isWalkable);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (!pathfindingVisual.isInEditMode)
         {
-            
-
-            Vector3 mouseWorldPosition = GetMouseWorldPos();
-            pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
-            List<PathNode> path = pathfinding.FindPath(startX, startY, x, y);
-
-            Vector3 offset = new Vector3(-2.5f,-4f,0);
-
-            if (path != null)
+            if (Input.GetMouseButtonDown(0))
             {
-                for (int i = 0; i < path.Count - 1; i++)
-                {
-                    //Debug.Log(path[i].x + " " + path[i].y);
-                    Debug.DrawLine(new Vector3((float)path[i].x / 2 + .25f, (float)path[i].y / 2 + .25f) + offset, 
-                    new Vector3((float)path[i+1].x / 2 + .25f,(float) path[i+1].y / 2 + .25f) + offset, 
-                    Color.green, 4f);
-                }
-            }
+                
 
-            unit.SetTargetPosition(mouseWorldPosition);
+                Vector3 mouseWorldPosition = GetMouseWorldPos();
+                pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
+                List<PathNode> path = pathfinding.FindPath(startX, startY, x, y);
+
+                Vector3 offset = new Vector3(-2.5f,-4f,0);
+
+                if (path != null)
+                {
+                    for (int i = 0; i < path.Count - 1; i++)
+                    {
+                        //Debug.Log(path[i].x + " " + path[i].y);
+                        Debug.DrawLine(new Vector3((float)path[i].x / 2 + .25f, (float)path[i].y / 2 + .25f) + offset, 
+                        new Vector3((float)path[i+1].x / 2 + .25f,(float) path[i+1].y / 2 + .25f) + offset, 
+                        Color.green, 4f);
+                    }
+                }
+
+                unit.SetTargetPosition(mouseWorldPosition);
+            }
         }
     }
 

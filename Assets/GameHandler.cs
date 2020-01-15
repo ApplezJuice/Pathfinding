@@ -6,10 +6,13 @@ public class GameHandler : MonoBehaviour
 {
     [SerializeField] public PathfindingVisuals pathfindingVisual;
     [SerializeField] public GameObject castlePrefab;
+    [SerializeField] public WallConfigs[] wallConfigs;
 
     private bool isInEditMode = false;
     private GridCustom<PathNode> grid;
     private List<PathNode> editableNodes = new List<PathNode>();
+
+    public WallConfigs selectedWall;
 
     public void Init()
     {
@@ -31,6 +34,18 @@ public class GameHandler : MonoBehaviour
         Instantiate(castlePrefab, grid.GetWorldPos(5,1),Quaternion.identity);
     }
 
+    public void SetSelectedWall(WallConfigs config)
+    {
+        selectedWall = config;
+    }
+
+    public WallConfigs GetAvailableWalls()
+    {
+        WallConfigs config = wallConfigs[Random.Range(0,wallConfigs.Length)];
+
+        return config;
+    }
+
     private void Update() 
     {
         // TEST ENTER EDIT MODE
@@ -39,6 +54,35 @@ public class GameHandler : MonoBehaviour
             isInEditMode = !isInEditMode;
             pathfindingVisual.isInEditMode = isInEditMode;
             DrawPlaceableGrid();
+        }
+
+        if (isInEditMode)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (selectedWall == null)
+                {
+                    Debug.Log("No wall selected");
+                }else
+                {
+                    var mousePosition = GetMouseWorldPos();
+
+                    int x, y;
+                    grid.GetXY(mousePosition, out x, out y);
+                    var node = Pathfinding.Instance.GetNode(x, y);
+                    if (node.isWalkable == false || !node.canPlaceWall)
+                    {
+                        // CANNOT PLACE A WALL
+                        Debug.Log("Can't place here");
+                    }else
+                    {
+                        node.SetIsWalkable(false);
+    
+                        var gameobj = Instantiate(selectedWall.wallPrefab, grid.GetWorldPos(x,y) + new Vector3(.25f, .25f), Quaternion.identity);
+                        gameobj.transform.localScale = new Vector3(.5f,.5f);
+                    }
+                }
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) && isInEditMode)
@@ -58,5 +102,16 @@ public class GameHandler : MonoBehaviour
     private void HidePlaceableGrid()
     {
         pathfindingVisual.ShowEditables();
+    }
+
+    private Vector3 GetMouseWorldPos()
+    {
+        var mousePos = Input.mousePosition;
+        mousePos.z = Mathf.Abs(Camera.main.transform.position.z);
+        
+        Vector3 vec = Camera.main.ScreenToWorldPoint(mousePos);
+        //Debug.Log(vec);
+
+        return vec;
     }
 }
