@@ -80,7 +80,7 @@ public class GameHandler : MonoBehaviour
             // OVER A NODE THAT CAN PLACE A WALL
             if (mouseLocationNode != null && mouseLocationNode.canPlaceWall)
             {
-                Debug.Log(mouseLocationNode.x + " " + mouseLocationNode.y);
+                //Debug.Log(mouseLocationNode.x + " " + mouseLocationNode.y);
                 // NEW NODE NOT BEGINNING
                 if (mouseHoverNode != mouseLocationNode && mouseHoverNode != null)
                 {

@@ -7,8 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 64sprite
-  m_Shader: {fileID: 10101, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: EdgeHoverNew
+  m_Shader: {fileID: -6465566751694194690, guid: dd81c5a43b14aa245a5ca791efd29015,
+    type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,9 +21,10 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: d62f545846835ff42aa94087db7a40be, type: 3}
+        m_Texture: {fileID: 2800000, guid: 02186125ea6d7064cbc74c0126da08d0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats: []
+    m_Floats:
+    - Vector1_2AE6BA55: -9.36
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - Color_850B5FBE: {r: 0, g: 0.43527526, b: 0.04608797, a: 1}
